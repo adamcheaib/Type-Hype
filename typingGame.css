@@ -1,0 +1,62 @@
+* {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: rgb(211, 234, 255);
+}
+
+#wrapper {
+    border: solid 4px rgb(88, 88, 255);
+    width: 40%;
+    padding: 20px;
+    box-sizing: border-box;
+    min-height: 400px;
+    min-width: 400px;
+    background-color: white;
+    border-radius: 10px;
+    transition-property: min-height, min-width;
+    transition-duration: 2s;
+}
+
+#title_screen {
+    transition-property: opacity;
+    transition-duration: 1.5s;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#instructions {
+    text-align: center;
+    width: 80%;
+}
+
+#startButton {
+    border: solid 2px gray;
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 30px;
+    background-color: lightblue;
+    font-weight: bold;
+}
+
+#startButton:hover {
+    cursor: pointer;
+    user-select: none;
+}
+
+#startButton:active {
+    background-color: blue;
+    color: white;
+    border: solid 2px black;
+}
+
+
+.gameplay {
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: 3s;
+}
