@@ -7,8 +7,8 @@ function prepareGame() {
     const wordLettersArray = Array.from(random_text);
 
     document.getElementById("wrapper").innerHTML = `
-    <div class="gameplay">
-    <div id"game_information"><p>Time: <span id="timer">45</span><p>Score: <span id="score">0</span></p></div>
+    <div class="gameplay" style="opacity: 0;">
+    <div id"game_information"><p>Time: <span id="timer">45</span><p>Score: <span id="score"></span></p></div>
     <div id="game"></div>
     </div>`;
 
@@ -17,13 +17,15 @@ function prepareGame() {
         const seperateLetter = document.createElement("span")
         seperateLetter.textContent = letter;
         seperateLetter.classList.add("unchecked");
-        seperateLetter.style.fontSize = "20px";
+        seperateLetter.style.fontSize = "30px";
         document.querySelector("#game").appendChild(seperateLetter);
     });
 
     document.body.addEventListener("keydown", checkLetter);
 
 }
+
+let score = 0;
 
 
 function checkLetter(event) {
@@ -38,14 +40,15 @@ function checkLetter(event) {
             if (allLetters.length > 2) {
                 if (allLetters[0 + 1].textContent == " ") {
                     allLetters[0 + 1].className = "targeted";
+                    score += 5;
+                    document.querySelector("#score").textContent = score;;
                 }
             }
             allLetters[0].style.color = "green";
             allLetters[0].className = "targeted";
-            document.querySelector("#score").textContent++;
         } else {
             // add error sound
-            document.querySelector("#score").textContent--;
+            // document.querySelector("#score").textContent--;
         }
     }
 }
