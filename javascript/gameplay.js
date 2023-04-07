@@ -1,9 +1,9 @@
 "use strict"
 
-const alphabetArray = Array.from(`qwertyuiopasdfghjklzxcvbnm.,""''-`);
+const alphabetArray = Array.from(`QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm.,""''-1234567890`);
 
 function prepareGame() {
-    const random_text = data[Math.floor(Math.random() * data.length)].toLowerCase();
+    const random_text = data[Math.floor(Math.random() * data.length)];
     const wordLettersArray = Array.from(random_text);
 
     document.getElementById("wrapper").innerHTML = `
@@ -42,26 +42,32 @@ function prepareGame() {
 }
 
 let score = 0;
+let correctsInputs = 0;
+let wrongInputs = 0;
 
 
 function checkLetter(event) {
-
-    if (alphabetArray.includes(event.key)) {
+    if (alphabetArray.includes(event.key.toUpperCase())) {
         let allLetters = document.querySelectorAll(".unchecked");
-        if (event.key === allLetters[0].textContent) {
+        if (event.key.toUpperCase() === allLetters[0].textContent || event.key.toLowerCase() === allLetters[0].textContent) {
             correctTypeSound(0.5);
+            correctsInputs++;
 
             if (allLetters.length > 2) {
                 if (allLetters[0 + 1].textContent == " ") {
                     allLetters[0 + 1].className = "targeted";
                     score += 5;
+
                     document.querySelector("#score").textContent = score;;
                 }
             }
             allLetters[0].style.color = "green";
             allLetters[0].className = "targeted";
+            allLetters[0].style.backgroundColor = "none";
         } else {
             errorTypeSound(0.7);
+            allLetters[0].style.color = "red";
+            wrongInputs++;
         }
     }
 }
@@ -90,6 +96,9 @@ function create_alert(text) {
     let score = document.querySelector("#score").textContent;
     let timer = parseInt(document.querySelector("#timer").textContent);
 
+    let totalInputs = correctsInputs + wrongInputs;
+    let final_accuracy_score = correctsInputs / totalInputs;
+
     if (score === null) {
         score = 0;
     };
@@ -101,7 +110,7 @@ function create_alert(text) {
     let white_background = document.createElement("div");
     white_background.id = "white_cover";
     white_background.innerHTML = `
-    <div id="boxInfo"><span>${text} Your score is ${score}</span><div id="close_button">Close</div></div>`;
+    <div id="boxInfo"><span>${text} Your score is ${score}. You had an accuracy of ${Math.round(final_accuracy_score * 100)}%</span><div id="close_button">Close</div></div>`;
     document.querySelector("body").appendChild(white_background);
     document.querySelector("body").removeEventListener("keydown", checkLetter);
     document.querySelector("#close_button").addEventListener("click", (event) => { prepareGame(); document.getElementById("white_cover").remove() });
