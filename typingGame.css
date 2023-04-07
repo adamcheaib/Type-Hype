@@ -59,4 +59,71 @@ body {
     opacity: 0;
     transition-property: opacity;
     transition-duration: 3s;
+    display: grid;
+    gap: 40px;
+}
+
+.gameplay>img {
+    max-width: 100%;
+    justify-self: center;
+}
+
+#white_cover {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 100%;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#boxInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    background-color: rgb(211, 234, 255);
+    border: 1px solid rgb(126, 193, 255);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+#close_button {
+    background-color: white;
+    border: 1px solid rgb(126, 193, 255);
+    width: 60px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+#close_button:hover {
+    cursor: pointer;
+    user-select: none;
+}
+
+#error_popup {
+    position: relative;
+    animation-name: popup_animations;
+    animation-duration: 0.5s;
+}
+
+@keyframes popup_animations {
+    from {
+        opacity: 100%;
+        bottom: 20px;
+    }
+
+    to {
+        opacity: 0%;
+        bottom: 0px;
+        visibility: hidden;
+    }
 }
