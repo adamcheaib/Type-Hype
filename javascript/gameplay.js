@@ -2,17 +2,33 @@
 
 const alphabetArray = Array.from(`QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm.,""''-1234567890`);
 
+function areUready() {
+    let wrapper = document.getElementById("wrapper");
+    wrapper.style.display = "flex";
+    wrapper.style.alignItems = "center";
+    wrapper.style.justifyContent = "center";
+    let countDownAudio = new Audio("./media/countdown.wav");
+
+
+    setTimeout(() => { wrapper.innerHTML = "<span style='font-size: 40px'>1</span>"; countDownAudio.play(); }, 1000);
+    setTimeout(() => wrapper.innerHTML = "<span style='font-size: 40px'>2</span>", 2000);
+    setTimeout(() => wrapper.innerHTML = "<span style='font-size: 40px'>3</span>", 3000);
+    setTimeout(() => prepareGame(), 4000);
+
+}
+
 function prepareGame() {
     const random_text = data[Math.floor(Math.random() * data.length)];
     const wordLettersArray = Array.from(random_text);
 
     document.getElementById("wrapper").innerHTML = `
     <div class="gameplay" style="opacity: 0;">
-    <div id"game_information"><p>Time: <span id="timer">45</span> seconds<p>Score: <span id="score">${score}</span></p></div>
+    <div id="game_information"><p>Time: <span id="timer">45</span> seconds<p>Score: <span id="score">${score}</span></p></div>
     <div id="game"></div>
     <img src="./media/kbdReference.png">
     </div>`;
 
+    // document.querySelector("#game_information").style.fontSize = "30px";
     document.querySelector(".gameplay").style.opacity = "100%";
     wordLettersArray.forEach(letter => {
         const seperateLetter = document.createElement("span")
@@ -61,7 +77,7 @@ function checkLetter(event) {
                     document.querySelector("#score").textContent = score;;
                 }
             }
-            allLetters[0].style.color = "green";
+            allLetters[0].style.color = "rgb(0, 255, 0)";
             allLetters[0].className = "targeted";
             allLetters[0].style.backgroundColor = "none";
         } else {
@@ -98,6 +114,9 @@ function create_alert(text) {
 
     let totalInputs = correctsInputs + wrongInputs;
     let final_accuracy_score = correctsInputs / totalInputs;
+    if (final_accuracy_score == NaN) {
+        final_accuracy_score = 0;
+    }
 
     if (score === null) {
         score = 0;
@@ -113,5 +132,5 @@ function create_alert(text) {
     <div id="boxInfo"><span>${text} Your score is ${score}. You had an accuracy of ${Math.round(final_accuracy_score * 100)}%</span><div id="close_button">Close</div></div>`;
     document.querySelector("body").appendChild(white_background);
     document.querySelector("body").removeEventListener("keydown", checkLetter);
-    document.querySelector("#close_button").addEventListener("click", (event) => { prepareGame(); document.getElementById("white_cover").remove() });
+    document.querySelector("#close_button").addEventListener("click", (event) => { areUready(); document.getElementById("white_cover").remove() });
 };

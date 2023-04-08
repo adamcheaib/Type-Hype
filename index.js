@@ -11,8 +11,8 @@ function start_game(event) {
 
     setTimeout(() => {
         main_screen.style.minHeight = "800px";
-        // main_screen.style.minWidth = "800px";
-    }, 1000);
+        main_screen.style.minWidth = "800px";
+    }, 800);
 
-    setTimeout(prepareGame, 2600);
+    setTimeout(areUready, 2700);
 }

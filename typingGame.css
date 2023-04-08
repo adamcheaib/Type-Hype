@@ -9,10 +9,11 @@ body {
 #wrapper {
     border: solid 4px rgb(88, 88, 255);
     width: 40%;
-    padding: 20px;
+    padding: 30px;
     box-sizing: border-box;
     min-height: 400px;
     min-width: 400px;
+    max-width: 1000px;
     background-color: white;
     border-radius: 10px;
     transition-property: min-height, min-width;
@@ -68,6 +69,10 @@ body {
     justify-self: center;
 }
 
+#game_information {
+    font-size: 25px;
+}
+
 #white_cover {
     position: absolute;
     top: 50%;
@@ -113,17 +118,4 @@ body {
     position: relative;
     animation-name: popup_animations;
     animation-duration: 0.5s;
-}
-
-@keyframes popup_animations {
-    from {
-        opacity: 100%;
-        bottom: 20px;
-    }
-
-    to {
-        opacity: 0%;
-        bottom: 0px;
-        visibility: hidden;
-    }
 }
