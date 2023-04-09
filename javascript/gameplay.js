@@ -10,10 +10,11 @@ function areUready() {
     let countDownAudio = new Audio("./media/countdown.wav");
 
 
-    setTimeout(() => { wrapper.innerHTML = "<span style='font-size: 40px'>1</span>"; countDownAudio.play(); }, 1000);
-    setTimeout(() => wrapper.innerHTML = "<span style='font-size: 40px'>2</span>", 2000);
-    setTimeout(() => wrapper.innerHTML = "<span style='font-size: 40px'>3</span>", 3000);
-    setTimeout(() => prepareGame(), 4000);
+    countDownAudio.play();;
+    wrapper.innerHTML = "<span style='font-size: 40px'>3</span>";
+    setTimeout(() => wrapper.innerHTML = "<span style='font-size: 40px'>2</span>", 1000);
+    setTimeout(() => wrapper.innerHTML = "<span style='font-size: 40px'>1</span>", 2000);
+    setTimeout(() => prepareGame(), 3000);
 
 }
 

@@ -8,11 +8,8 @@ function start_game(event) {
     const title_information = document.getElementById("title_screen");
 
     title_information.style.opacity = "0";
+    main_screen.style.minHeight = "800px";
+    main_screen.style.minWidth = "800px";
 
-    setTimeout(() => {
-        main_screen.style.minHeight = "800px";
-        main_screen.style.minWidth = "800px";
-    }, 800);
-
-    setTimeout(areUready, 2700);
+    areUready();
 }

@@ -16,8 +16,6 @@ body {
     max-width: 1000px;
     background-color: white;
     border-radius: 10px;
-    transition-property: min-height, min-width;
-    transition-duration: 2s;
 }
 
 #title_screen {
