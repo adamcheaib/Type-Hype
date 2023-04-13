@@ -15,7 +15,6 @@ function areUready() {
     setTimeout(() => wrapper.innerHTML = "<span style='font-size: 40px'>2</span>", 1000);
     setTimeout(() => wrapper.innerHTML = "<span style='font-size: 40px'>1</span>", 2000);
     setTimeout(() => prepareGame(), 3000);
-
 }
 
 function prepareGame() {
@@ -23,14 +22,12 @@ function prepareGame() {
     const wordLettersArray = Array.from(random_text);
 
     document.getElementById("wrapper").innerHTML = `
-    <div class="gameplay" style="opacity: 0;">
+    <div class="gameplay">
     <div id="game_information"><p>Time: <span id="timer">45</span> seconds<p>Score: <span id="score">${score}</span></p></div>
     <div id="game"></div>
     <img src="./media/kbdReference.png">
     </div>`;
 
-    // document.querySelector("#game_information").style.fontSize = "30px";
-    document.querySelector(".gameplay").style.opacity = "100%";
     wordLettersArray.forEach(letter => {
         const seperateLetter = document.createElement("span")
         seperateLetter.textContent = letter;
@@ -115,7 +112,7 @@ function create_alert(text) {
 
     let totalInputs = correctsInputs + wrongInputs;
     let final_accuracy_score = correctsInputs / totalInputs;
-    if (final_accuracy_score == NaN) {
+    if (score == 0) {
         final_accuracy_score = 0;
     }
 
@@ -130,8 +127,49 @@ function create_alert(text) {
     let white_background = document.createElement("div");
     white_background.id = "white_cover";
     white_background.innerHTML = `
-    <div id="boxInfo"><span>${text} Your score is ${score}. You had an accuracy of ${Math.round(final_accuracy_score * 100)}%</span><div id="close_button">Close</div></div>`;
+    <div id="boxInfo"><span>${text} Your score is ${score}. 
+    You had an accuracy of ${Math.round(final_accuracy_score * 100)}%!
+    </span><span style="color:red;" id="incase_error"></span>
+    <p>Enter your name: <input id="player_name" type="text"></p>
+    Highscore List:
+    <ol id="highscore_list"></ol>
+    <div id="close_button">Submit highscore</div></div>`;
     document.querySelector("body").appendChild(white_background);
     document.querySelector("body").removeEventListener("keydown", checkLetter);
-    document.querySelector("#close_button").addEventListener("click", (event) => { areUready(); document.getElementById("white_cover").remove() });
-};
+    document.querySelector("#close_button").addEventListener("click", submit_highscore);
+
+    fetch("./game_data/highscore.php").then(r => r.json()).then(player_list => {
+        player_list.forEach(user => {
+            const listitem = document.createElement("div");
+            listitem.innerHTML = `<li>${user.name}</li> <p>Score: ${user.score}</p>`;
+            listitem.classList.add("listitem");
+            document.querySelector("#highscore_list").appendChild(listitem);
+        })
+    });
+
+    async function submit_highscore(event) {
+
+        try {
+            const player_name = document.querySelector("#player_name").value;
+            let response = await fetch("./game_data/highscore.php", {
+                method: "POST",
+                headers: { "content-type": "application/json" },
+                body: JSON.stringify({
+                    player_name: player_name,
+                    player_score: score
+                }),
+            });
+
+            if (response.ok) {
+                areUready(); document.getElementById("white_cover").remove();
+            }
+
+            let resource = await response.json();
+            document.querySelector("#incase_error").textContent = resource.error;
+
+
+        } catch (err) {
+            console.log(err);
+        }
+    }
+}
