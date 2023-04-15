@@ -32,7 +32,7 @@ function prepareGame() {
         const seperateLetter = document.createElement("span")
         seperateLetter.textContent = letter;
         seperateLetter.classList.add("unchecked");
-        seperateLetter.style.fontSize = "30px";
+        seperateLetter.style.fontSize = "26px";
         document.querySelector("#game").appendChild(seperateLetter);
     });
 
